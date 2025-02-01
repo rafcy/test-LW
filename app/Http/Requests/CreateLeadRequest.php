@@ -22,7 +22,6 @@ class CreateLeadRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'id' => 'nullable|string',
             'full_name' => 'required|string',
             'email' => 'required|email',
             'consent' => 'required|boolean',

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Facades\Mailchimp;
 use App\Http\Requests\CreateLeadRequest;
 use App\Models\Lead;
 use Illuminate\Http\JsonResponse;
@@ -18,23 +19,33 @@ class LeadController extends Controller
     {
         $data = $request->validated();
 
-        if (isset($data['id'])) {
-            $lead = Lead::find($data['id']);
-            if ($lead) {
-                $lead->update($data);
-                return response()->json(['message' => 'Lead updated successfully', 'lead' => $lead], 200);
-            }
-        }
-
         $lead = Lead::create($data);
-        return response()->json(['message' => 'Lead created successfully', 'lead' => $lead], 201);
+
+        $mailchimpResponse = Mailchimp::subscribe($lead->email, $lead->full_name);
+
+        return response()->json([
+            'message' => 'Lead created successfully',
+            'lead' => $lead,
+            'mailchimp' => $mailchimpResponse
+        ], 200);
     }
 
     public function update(Request $request, $id)
     {
         $lead = Lead::findOrFail($id);
+
+        if (!$lead) {
+            abort(404);
+        }
+
         $lead->update($request->all());
 
-        return response()->json($lead);
+        $mailchimpResponse = Mailchimp::updateSubscriber($lead->email, $lead->full_name);
+
+        return response()->json([
+            'message' => 'Lead updated successfully',
+            'lead' => $lead,
+            'mailchimp' => $mailchimpResponse
+        ], 200);
     }
 }

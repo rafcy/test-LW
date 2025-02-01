@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Providers;
-
+use App\Services\MailchimpService;
 use Illuminate\Support\ServiceProvider;
+
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -11,7 +11,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+      //
     }
 
     /**
@@ -19,6 +19,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        $this->app->singleton(MailchimpService::class, function ($app) {
+            return new MailchimpService();
+        });
+
     }
 }
