@@ -13,14 +13,15 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from 'vue';
+import { computed } from 'vue';
 
 type IconSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'custom';
 
-export default defineComponent({
-    name: 'SvgIcon',
+export default {
     inheritAttrs: false,
+
     emits: ['click'],
+
     props: {
         prefix: {
             type: String,
@@ -50,6 +51,7 @@ export default defineComponent({
             default: null,
         },
     },
+
     setup(props) {
         const symbolId = computed(() => `#${props.prefix}-${props.name}`);
 
@@ -67,18 +69,18 @@ export default defineComponent({
             sizeClasses,
         };
     },
-});
+};
 </script>
 
 <style>
-.app-svg-icon {
-    display: inline-block;
-    vertical-align: middle;
-    fill: currentColor;
-}
+    .app-svg-icon {
+        display: inline-block;
+        vertical-align: middle;
+        fill: currentColor;
+    }
 
-.app-svg-icon.custom {
-    width: var(--icon-width, 20px);
-    height: var(--icon-height, 20px);
-}
+    .app-svg-icon.custom {
+        width: var(--icon-width, 20px);
+        height: var(--icon-height, 20px);
+    }
 </style>

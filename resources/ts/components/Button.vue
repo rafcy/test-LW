@@ -1,6 +1,6 @@
 <template>
     <button :class="[
-        'inline-flex items-center justify-center px-4 py-2 rounded-lg transition-all duration-200 font-medium focus:outline-none focus:ring-2 focus:ring-offset-2',
+        'inline-flex items-center justify-center px-2 py-2 rounded-lg transition-all duration-200 font-medium focus:outline-none focus:ring-2 focus:ring-offset-2',
         variantClasses[variant],
         sizeClasses[size],
         { 'opacity-50 cursor-not-allowed': disabled }
@@ -41,9 +41,9 @@ export default {
         },
         sizeClasses(): Record<string, string> {
             return {
-                sm: 'text-sm px-3 py-1.5',
-                md: 'text-base px-4 py-2',
-                lg: 'text-lg px-6 py-3'
+                sm: 'text-sm px-1 py-1',
+                md: 'text-base px-2 py-2',
+                lg: 'text-lg px-3 py-3'
             };
         }
     }

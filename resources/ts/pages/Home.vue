@@ -8,22 +8,39 @@
         </p>
         <Button variant="primary" size="lg" @click="openLeadModal">
             <template #prefix>
-                <PlusIcon class="h-5 w-5" />
+                <Icon class="px-1 mx-1" name="plus-solid" />
             </template>
-
-            Capture New Lead
+            Add New Lead
         </Button>
     </div>
+    <LeadModal v-if="showLeadModal" @close="showLeadModal = false" />
+
 </template>
 
 <script lang="ts">
+import { LeadForm } from '@/types/LeadForm.interfaces';
 
 export default {
-    name: 'Home',
-    methods: {
-        openLeadModal(): void {
-
+    data() {
+        return {
+            showLeadModal: false
         }
-    }
+    },
+
+    methods: {
+        handleLeadSaved(lead: LeadForm) {
+
+        },
+
+        openLeadModal(): void {
+            this.showLeadModal = true;
+        },
+    },
 };
 </script>
+
+<style scoped>
+    .icon {
+
+    }
+</style>
