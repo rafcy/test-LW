@@ -4,11 +4,10 @@
             <h1 class="text-2xl sm:text-3xl font-bold text-secondary-800">
                 Leads Management
             </h1>
-            <Button variant="primary" @click="openLeadModal">
+            <Button variant="primary" @click="openLeadModal(null)">
                 <template #prefix>
                     <Icon class="px-1 mx-1" name="plus-solid" />
                 </template>
-
                 Add New Lead
             </Button>
         </div>
@@ -63,7 +62,6 @@ export default {
 
         openLeadModal(lead: null | LeadForm = null): void {
             this.selectedLead = lead ?? null;
-            console.log(this.selectedLead);
             this.showLeadModal = true;
         },
 
@@ -74,15 +72,14 @@ export default {
                 this.currentPage = response.data.current_page;
                 this.totalPages = response.data.last_page;
                 this.$router.push({ query: { page: this.currentPage } });
-
             } catch (error) {
                 toast.error(`Error fetching leads ${error?.message}`)
             }
         },
 
-        changePage(page: number) {
+        async changePage(page: number) {
             if (page > 0 && page <= this.totalPages) {
-                this.fetchLeads(page);
+                await this.fetchLeads(page);
             }
         }
     }

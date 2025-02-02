@@ -13,7 +13,6 @@
 
 <script lang="ts">
 export default {
-    name: 'Button',
     props: {
         variant: {
             type: String,
@@ -30,6 +29,7 @@ export default {
             default: false
         }
     },
+
     computed: {
         variantClasses(): Record<string, string> {
             return {
@@ -39,6 +39,7 @@ export default {
                 danger: 'bg-red-500 hover:bg-red-600 text-white focus:ring-red-500'
             };
         },
+
         sizeClasses(): Record<string, string> {
             return {
                 sm: 'text-sm px-1 py-1',

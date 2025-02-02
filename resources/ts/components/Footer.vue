@@ -10,7 +10,6 @@
 
 <script lang="ts">
 export default {
-    name: 'Footer',
     computed: {
         currentYear(): number {
             return new Date().getFullYear();

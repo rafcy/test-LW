@@ -18,8 +18,6 @@
 </template>
 
 <script lang="ts">
-import { LeadForm } from '@/types/LeadForm.interfaces';
-
 export default {
     data() {
         return {
@@ -28,19 +26,9 @@ export default {
     },
 
     methods: {
-        handleLeadSaved(lead: LeadForm) {
-
-        },
-
         openLeadModal(): void {
             this.showLeadModal = true;
         },
     },
 };
 </script>
-
-<style scoped>
-    .icon {
-
-    }
-</style>

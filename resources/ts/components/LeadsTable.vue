@@ -60,7 +60,6 @@ export default {
             this.selectedLead = lead;
             this.isModalOpen = true;
             this.$emit('edit', this.selectedLead);
-            this.selected
         },
 
         formatDate
@@ -69,14 +68,14 @@ export default {
 </script>
 
 <style scoped>
-table {
-    border-collapse: collapse;
-    width: 100%;
-}
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
 
-th,
-td {
-    padding: 12px;
-    border: 1px solid #ddd;
-}
+    th,
+    td {
+        padding: 12px;
+        border: 1px solid #ddd;
+    }
 </style>

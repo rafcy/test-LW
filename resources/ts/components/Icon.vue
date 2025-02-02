@@ -1,19 +1,11 @@
 <template>
-    <svg
-        class="app-svg-icon"
-        :class="[sizeClasses[size], $attrs.class]"
-        @click="(...args) => $emit('click', ...args)"
-        aria-hidden="true"
-    >
-        <use
-            :xlink:href="symbolId"
-            :color="color"
-        />
+    <svg class="app-svg-icon" :class="[sizeClasses[size], $attrs.class]" @click="(...args) => $emit('click', ...args)"
+        aria-hidden="true">
+        <use :xlink:href="symbolId" :color="color" />
     </svg>
 </template>
 
 <script lang="ts">
-import { computed } from 'vue';
 
 type IconSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'custom';
 
@@ -52,23 +44,24 @@ export default {
         },
     },
 
-    setup(props) {
-        const symbolId = computed(() => `#${props.prefix}-${props.name}`);
-
-        const sizeClasses = {
-            xs: 'w-[16px] h-[16px]',
-            sm: 'w-[20px] h-[20px]',
-            md: 'w-[25px] h-[25px]',
-            lg: 'w-[30px] h-[30px]',
-            xl: 'w-[40px] h-[40px]',
-            custom: '',
-        };
-
-        return {
-            symbolId,
-            sizeClasses,
-        };
+    computed: {
+        symbolId() {
+            return `#${this.prefix}-${this.name}`;
+        }
     },
+
+    data() {
+        return {
+            sizeClasses:  {
+                xs: 'w-[16px] h-[16px]',
+                sm: 'w-[20px] h-[20px]',
+                md: 'w-[25px] h-[25px]',
+                lg: 'w-[30px] h-[30px]',
+                xl: 'w-[40px] h-[40px]',
+                custom: '',
+            }
+        }
+    }
 };
 </script>
 

@@ -33,7 +33,7 @@
                                 <label for="email" class="block text-sm font-medium text-secondary-700">
                                     Email Address
                                 </label>
-                                <input id="email" v-model="form.email" type="email" required :class="[
+                                <input id="email" v-model="form.email" :disabled="isEditing" type="email" required :class="[
                                     'mt-1 block w-full rounded-md border-gray-300 shadow-sm',
                                     'focus:border-primary-500 focus:ring-primary-500',
                                     { 'border-red-300': errors.email }
@@ -45,11 +45,11 @@
 
                             <div class="flex items-start">
                                 <div class="flex h-5 items-center">
-                                    <input id="consent" v-model="form.consent" type="checkbox" required
+                                    <input id="consent" v-model="form.consent"  :disabled="isEditing" type="checkbox" required
                                         class="h-4 w-4 rounded border-gray-300 text-primary-600 focus:ring-primary-500" />
                                 </div>
                                 <div class="ml-3">
-                                    <label for="consent" class="text-sm text-secondary-700">
+                                    <label for="consent"  class="text-sm text-secondary-700">
                                         I agree to receive marketing emails
                                     </label>
                                 </div>
@@ -168,9 +168,9 @@ export default {
 
     watch: {
         editData(newValue) {
-            console.log('test');
             if (newValue) {
                 Object.assign(this.form, newValue);
+                this.isEditing = true;
             }
         }
     }
