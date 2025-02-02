@@ -10,10 +10,15 @@ use Illuminate\Http\Request;
 
 class LeadController extends Controller
 {
-    public function index()
+    public function index(Request $request): JsonResponse
     {
-        return response()->json(Lead::all());
+        $leadsPerPage = env('LEADS_PER_PAGE',  5);
+
+        $leads = Lead::latest()->paginate($leadsPerPage);
+
+        return response()->json($leads, 200);
     }
+
 
     public function store(CreateLeadRequest $request): JsonResponse
     {

@@ -43,6 +43,17 @@ class MailchimpService
                     ],
                 ]);
 
+            if ($response->status() !== 200) {
+                Log::error('Mailchimp API Error: ', [
+                    'email' => $email,
+                    'fullName' => $fullName,
+                    'status' => $response->status(),
+                    'response' => $response->json(),
+                ]);
+
+                return ['error' => 'Failed to subscribe to Mailchimp'];
+            }
+
             return json_decode($response->getBody()->getContents(), true);
         } catch (\Exception $e) {
             Log::error('Mailchimp API Error: ', [
@@ -78,6 +89,17 @@ class MailchimpService
                     ]
                 ]);
 
+            if ($response->status() !== 200) {
+                Log::error('Mailchimp API Error: ', [
+                    'email' => $email,
+                    'fullName' => $fullName,
+                    'status' => $response->status(),
+                    'response' => $response->json(),
+                ]);
+
+                return ['error' => 'Failed to subscribe to Mailchimp'];
+            }
+
             return json_decode($response->getBody()->getContents(), true);
         } catch (\Exception $e) {
             Log::error('Mailchimp API Update Error: ', [
@@ -85,6 +107,7 @@ class MailchimpService
                 'fullName' => $fullName,
                 'error' => $e->getMessage()
             ]);
+
             return ['error' => 'Failed to update Mailchimp subscriber'];
         }
     }

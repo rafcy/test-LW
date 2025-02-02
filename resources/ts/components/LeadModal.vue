@@ -133,7 +133,6 @@ export default {
                 this.errors.email = 'Consent must be accepted'
             }
 
-            console.log(this.errors,Object.keys(this.errors).length);
             return Object.keys(this.errors).length === 0;
         },
 
@@ -154,7 +153,6 @@ export default {
                 } else {
                     toast.error(error.response?.data?.message || 'An error occurred while saving the lead');
                 }
-                console.log(error);
             } finally {
                 this.isSubmitting = false;
             }

@@ -10,6 +10,7 @@
                         <th class="p-3 border">Full Name</th>
                         <th class="p-3 border">Email</th>
                         <th class="p-3 border">Consent</th>
+                        <th class="p-3 border">Updated</th>
                         <th class="p-3 border">Actions</th>
                     </tr>
                 </thead>
@@ -22,6 +23,7 @@
                             <span v-if="lead.consent" class="text-green-600">✔</span>
                             <span v-else class="text-red-600">✖</span>
                         </td>
+                        <td class="p-3 border">{{ formatDate(lead.updated_at) }}</td>
                         <td class="p-3 border">
                             <Button @click="edit(lead)" variant="secondary">
                                 Edit
@@ -37,6 +39,7 @@
 
 <script lang="ts">
 import { LeadForm } from '@/types/LeadForm.interfaces';
+import { formatDate } from '@/helpers';
 
 export default {
     props: {
@@ -59,6 +62,8 @@ export default {
             this.$emit('edit', this.selectedLead);
             this.selected
         },
+
+        formatDate
     }
 };
 </script>

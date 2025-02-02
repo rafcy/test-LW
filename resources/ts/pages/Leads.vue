@@ -6,7 +6,7 @@
             </h1>
             <Button variant="primary" @click="openLeadModal">
                 <template #prefix>
-                <Icon class="px-1 mx-1" name="plus-solid" />
+                    <Icon class="px-1 mx-1" name="plus-solid" />
                 </template>
 
                 Add New Lead
@@ -14,8 +14,23 @@
         </div>
 
         <LeadsTable :leads="leads" @edit="openLeadModal" />
+
+        <div class="flex justify-between items-center mt-6">
+            <button @click="changePage(currentPage - 1)" :disabled="currentPage === 1"
+                class="px-4 py-2 bg-gray-300 rounded-md hover:bg-gray-400 disabled:opacity-50">
+                Previous
+            </button>
+
+            <span>Page {{ currentPage }} of {{ totalPages }}</span>
+
+            <button @click="changePage(currentPage + 1)" :disabled="currentPage === totalPages"
+                class="px-4 py-2 bg-gray-300 rounded-md hover:bg-gray-400 disabled:opacity-50">
+                Next
+            </button>
+        </div>
     </div>
-    <LeadModal v-if="showLeadModal" @close="showLeadModal = false" @lead-saved="handleLeadSaved" :editData="selectedLead" />
+    <LeadModal v-if="showLeadModal" @close="showLeadModal = false" @lead-saved="handleLeadSaved"
+        :editData="selectedLead" />
 </template>
 
 <script lang="ts">
@@ -30,7 +45,9 @@ export default {
         return {
             leads: [] as Array<LeadForm>,
             showLeadModal: false,
-            selectedLead: null as LeadForm | null
+            selectedLead: null as LeadForm | null,
+            currentPage: 1,
+            totalPages: 1,
         }
     },
 
@@ -50,14 +67,23 @@ export default {
             this.showLeadModal = true;
         },
 
-        async fetchLeads() {
+        async fetchLeads(page: number = 1) {
             try {
-                const response = await axios.get("/api/leads");
-                this.leads = response.data;
+                const response = await axios.get(`/api/leads?page=${page}`);
+                this.leads = response.data?.data;
+                this.currentPage = response.data.current_page;
+                this.totalPages = response.data.last_page;
+                this.$router.push({ query: { page: this.currentPage } });
+
             } catch (error) {
                 toast.error(`Error fetching leads ${error?.message}`)
             }
+        },
 
+        changePage(page: number) {
+            if (page > 0 && page <= this.totalPages) {
+                this.fetchLeads(page);
+            }
         }
     }
 };
